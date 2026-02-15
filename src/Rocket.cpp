@@ -46,8 +46,8 @@ void Rocket::update(const float dt)
             float random_y = m_dist_x(m_gen);
 
 
-            particles.emplace_back(Particle(sf::Vector2f({m_position.x, m_position.y + half_height * 0.5f}),
-                                            sf::Vector2f({random_x, random_y})));
+            particles.emplace_back(sf::Vector2f({m_position.x, m_position.y + half_height * 0.5f}),
+                                   sf::Vector2f({random_x, random_y}));
         }
     }
 
