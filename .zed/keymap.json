@@ -1,0 +1,8 @@
+[
+    {
+        "context": "Workspace",
+        "bindings": {
+            "ctrl+shift+r": "task: spawn: Build & Run"
+        }
+    }
+]
