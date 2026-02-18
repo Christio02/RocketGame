@@ -16,6 +16,8 @@ add_executable(main src/main.cpp
         include/Game.hpp include/Rocket.hpp src/Rocket.cpp src/Game.cpp
         include/Particle.hpp
         src/Particle.cpp
+        include/Background.hpp
+        src/Background.cpp
 )
 target_compile_features(main PRIVATE cxx_std_20)
 target_link_libraries(main PRIVATE SFML::Graphics)
