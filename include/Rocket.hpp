@@ -13,6 +13,7 @@ public:
            sf::Vector2f m_init_thrust = {0.0f, 0.0f});
     void update(float dt);
     void draw(sf::RenderWindow& window) const;
+    void rotate(float dt);
 
 private:
     sf::Vector2f m_position;
@@ -22,8 +23,10 @@ private:
 
     float m_structural_mass = 5.0f;
     float m_fuel_mass = 20.f; // fuel mass
-    float m_exhaust_veloctiy = 10000.0f; // u = 2500 m/s
+    float m_exhaust_velocity = 10000.0f; // u = 2500 m/s
     float m_fuel_burn_rate = 0.5f;
+    float m_angle;
+    float m_rotation_speed = 5.0f;
 
     // generate random position for particles out of engine
     std::mt19937 m_gen;

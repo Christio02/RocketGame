@@ -22,6 +22,17 @@ Rocket::Rocket(sf::Vector2f m_init_pos, sf::Vector2f m_init_velocity, sf::Vector
     m_sprite.setScale({0.1f, 0.1f});
 }
 
+
+void Rocket::rotate(float dt) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+        m_angle -= m_rotation_speed * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+        m_angle += m_rotation_speed * dt;
+
+    sf::Angle angle = sf::degrees(m_angle - 90.f);
+    m_sprite.setRotation(angle);
+}
+
 void Rocket::update(const float dt)
 {
     const float half_height = (m_texture.getSize().y / 2.0f) * m_sprite.getScale().y;
@@ -29,14 +40,17 @@ void Rocket::update(const float dt)
     const float current_total_mass = m_structural_mass + m_fuel_mass;
     sf::Vector2f netForce = current_total_mass * sf::Vector2f(0, Game::gravity);
 
+    rotate((dt));
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && m_fuel_mass > 0)
     {
         // burn fuel
         m_fuel_mass -= m_fuel_burn_rate * dt; // mass decreases over timew
         if (m_fuel_mass < 0) m_fuel_mass = 0; // keep positive
         // Thrust force = u * |dm/dt|
-        const float thrust_magnitude = m_exhaust_veloctiy * m_fuel_burn_rate;
-        const sf::Vector2f thrust_y = {0, -thrust_magnitude};
+        const float thrust_magnitude = (m_exhaust_velocity * m_fuel_burn_rate);
+        float angle_rad = m_angle * (M_PI / 180.f);
+        const sf::Vector2f thrust_y = {std::sin(angle_rad), -std::cos(angle_rad) * thrust_magnitude};
 
         netForce += thrust_y;
 
